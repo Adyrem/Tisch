@@ -26,10 +26,9 @@ for pings in range(4):
         print(f"sending spin : {spin}")
         message = spin.to_bytes(2, 'big')
         client_socket.sendto(message, addr)
-        data, server = client_socket.recvfrom(1024)
+        data, server = client_socket.recvfrom(2)
         spin = int.from_bytes(data, 'big')
         print(f"received spin : {spin}")
-        spin += 1
     except socket.timeout:
         print("REQUEST TIMED OUT")
     except Exception as e:

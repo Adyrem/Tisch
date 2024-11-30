@@ -26,7 +26,7 @@ Arguments:
 -l: The Port the application should listen on. Default 4456
 -i: The IP the application should pass on to. If not set, the application instead adds spin and returns to the client.
 -p: The Port the application should pass on to. If not set, the application instead adds spin and returns to the client.
---AddSpin: Only relevant if -p is set. If this flag is set, spin is added before sending to the next server and returning back to the client.
+--AddSpin: Only relevant if lauched as a proxy. If this flag is set, spin is added before sending to the next server and returning back to the client, effectively turning it into a chain.
 -d: One in N Packages is dropped for testing purposes. Default 0 so no packages are dropped.
 ```
 Example server:
