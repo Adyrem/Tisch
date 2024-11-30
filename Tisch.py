@@ -3,25 +3,26 @@ import sys
 import argparse
 
 parser=argparse.ArgumentParser()
-parser.add_argument("-i", help="IP to ping")
-parser.add_argument("-p", help="Port to ping")
+parser.add_argument("-i", help="The server the application should try to ping. Default localhost")
+parser.add_argument("-p", help="-i: -p: The Port the application should send to. Default 4456")
 args=parser.parse_args()
 
-ip = args.i
-port = int(args.p)
-spin = 1
+ip = "127.0.0.1"
+port = 4456
 
-if ip == "":
-    ip = "127.0.0.1"
-if port == 0:
-    port = 4456
+if args.i:
+    ip = args.i
+if args.p:
+    port = int(args.p)
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 client_socket.settimeout(1.0)
 addr = (ip, port)
 
-for attempts in range(4):
+#Dont try to recover failed pings. Instead just ping 4 seperate times
+for pings in range(4):
     try:
+        spin = 1
         print(f"sending spin : {spin}")
         message = spin.to_bytes(2, 'big')
         client_socket.sendto(message, addr)

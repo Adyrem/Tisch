@@ -5,18 +5,39 @@ Tisch is the Client with Tennis being the server.
 
 ## Using Tisch
 
-Tisch.py is the client application.
+Tisch.py (Ping) is the client application.
 
+Arguments:
+```
+-i: The server the application should try to ping. Default localhost
+-p: The Port the application should send to. Default 4456
+```
 Example Usage:
 ```
-python Tisch.py {Server ip} {Server port}
+python Tisch.py -i="127.0.0.1" -p=4456
 ```
 
 ## Using Tennis
 
-Tennis.py is the server application.
+Tennis.py (Pong) is the server application. It can also be used as a client in a chain or as a proxy. See arguments for details.
 
-Example Usage:
+Arguments:
 ```
-python Tennis.py {Server Port}
+-l: The Port the application should listen on. Default 4456
+-i: The IP the application should pass on to. If not set, the application instead adds spin and returns to the client.
+-p: The Port the application should pass on to. If not set, the application instead adds spin and returns to the client.
+--AddSpin: Only relevant if -p is set. If this flag is set, spin is added before sending to the next server and returning back to the client.
+-d: One in N Packages is dropped for testing purposes. Default 0 so no packages are dropped.
+```
+Example server:
+```
+python Tennis.py -l=4456
+```
+Example proxy:
+```
+python Tennis.py -l=4456 -p=4457 -i="127.0.0.1"
+```
+Example chain:
+```
+python Tennis.py -l=4456 -p=4457 -i="127.0.0.1" --AddSpin
 ```
