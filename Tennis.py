@@ -58,7 +58,7 @@ def passOn(spin):
     client_socket.settimeout(1.0)
     addr = (ip, port)
 
-    for attempts in range(4):
+    for attempts in range(maxAttemps):
         try:
             print(f"sending spin : {spin}")
             message = spin.to_bytes(2, 'big')
@@ -68,11 +68,13 @@ def passOn(spin):
             print(f"received spin : {received}")
             return received
         except socket.timeout:
-            print("REQUEST TIMED OUT\nretrying")
-            continue
+            print("REQUEST TIMED OUT\nRetrying...")
+            if (attempts > maxAttemps):
+                continue
         except Exception as e:
-            print(f"{e}\n")
-            continue
+            print(f"{e}\nRetrying...")
+            if (attempts > maxAttemps):
+                continue
         else:
             break
 
